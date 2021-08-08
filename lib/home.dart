@@ -5,6 +5,7 @@ import 'package:dlys_official_site/page/page_tools.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -24,59 +25,34 @@ class HomeState extends State<Home> {
       return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          actions: [
-            MouseRegion(
-              cursor: SystemMouseCursors.click,
-              child: GestureDetector(
-                onTap: () {
-                  controller.setBodyCheckedIndex(0);
-                },
-                child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 10),
-                  child: Center(
-                    child: Text(
-                      '首页',
-                      style: TextStyle(fontSize: 14, color: Colors.white),
+          actions: List.generate(
+              titles.length,
+              (index) => MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: () {
+                        controller.setBodyCheckedIndex(index);
+                      },
+                      child: Container(
+                        color: (controller.bodyCheckedIndex == index)
+                            ? (Colors.amber)
+                            : (Colors.transparent),
+                        margin:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: Center(
+                            child: Text(
+                              titles.elementAt(index),
+                              style: GoogleFonts.abhayaLibre(
+                                  textStyle: TextStyle(
+                                      fontSize: 14, color: Colors.white)),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ),
-            ),
-            MouseRegion(
-              cursor: SystemMouseCursors.click,
-              child: GestureDetector(
-                onTap: () {
-                  controller.setBodyCheckedIndex(1);
-                },
-                child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 10),
-                  child: Center(
-                    child: Text(
-                      '工具',
-                      style: TextStyle(fontSize: 14, color: Colors.white),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            MouseRegion(
-              cursor: SystemMouseCursors.click,
-              child: GestureDetector(
-                onTap: () {
-                  controller.setBodyCheckedIndex(2);
-                },
-                child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 10),
-                  child: Center(
-                    child: Text(
-                      '关于我们',
-                      style: TextStyle(fontSize: 14, color: Colors.white),
-                    ),
-                  ),
-                ),
-              ),
-            )
-          ],
+                  )),
           title: Text(
             '糊涂官儿',
             style: TextStyle(
@@ -93,5 +69,7 @@ class HomeState extends State<Home> {
     });
   }
 }
+
+List<String> titles = ['首页', '工具', '关于我们'];
 
 List<Widget> pages = [PageShouye(), PageTools(), PageAbout()];
